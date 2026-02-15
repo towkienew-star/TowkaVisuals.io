@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TowkaVisuals · фиолет неон</title>
-    <!-- Inter + Minecraft vibes -->
+    <title>TowkaVisuals · фиолет анимация</title>
+    <!-- Inter + иконки -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -20,18 +19,66 @@
         body {
             font-family: 'Inter', sans-serif;
             background: #0b0b17;
-            background-image: radial-gradient(circle at 25% 0%, #2e1a47 0%, #0c0c1a 90%);
             color: #edeaff;
             line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Анимированный градиентный фон */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, #3a1f6a, #0c0c1a 70%);
+            animation: gradientShift 15s ease infinite alternate;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 70%, #5f2b9c, transparent 60%);
+            animation: gradientShift2 20s ease infinite alternate;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        @keyframes gradientShift {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes gradientShift2 {
+            0% { opacity: 0.3; transform: translate(0, 0) scale(1); }
+            100% { opacity: 0.8; transform: translate(-5%, -5%) scale(1.3); }
         }
 
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 1;
         }
 
-        /* неоновые эффекты (только свечение, без слова НЕОН в тексте) */
+        /* Анимация для появления элементов */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero, .pricing-section, .minecraft-box, .email-section {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* неоновые эффекты */
         .neon-glow {
             text-shadow: 0 0 6px #b77eff, 0 0 12px #a35eff, 0 0 20px #8a3cff;
         }
@@ -53,6 +100,7 @@
             image-rendering: pixelated;
             box-shadow: inset 0 0 0 2px #23162b;
             text-transform: uppercase;
+            border-radius: 8px;
         }
 
         .beta-tag {
@@ -62,10 +110,17 @@
             box-shadow: 0 0 12px #c273ff;
             font-weight: 700;
             padding: 0.2rem 1rem;
-            border-radius: 0px;
+            border-radius: 8px;
             margin-left: 1rem;
             font-size: 0.8rem;
             display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 12px #c273ff; }
+            50% { box-shadow: 0 0 25px #e2a5ff; }
+            100% { box-shadow: 0 0 12px #c273ff; }
         }
 
         /* навигация */
@@ -77,6 +132,11 @@
             border-bottom: 2px solid #5a3991;
             box-shadow: 0 4px 0 #2e1d47;
             flex-wrap: wrap;
+            backdrop-filter: blur(5px);
+            background: rgba(11, 11, 23, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            margin-top: 1rem;
         }
 
         .logo {
@@ -89,6 +149,12 @@
             margin-right: 0.5rem;
             color: #c285ff;
             filter: drop-shadow(0 0 8px #b45eff);
+            animation: rotate 6s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .logo-text {
@@ -110,6 +176,23 @@
             font-size: 1rem;
             transition: 0.2s;
             text-shadow: 0 0 5px #a06eff;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #b77eff;
+            box-shadow: 0 0 10px #b77eff;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .nav-links a:hover {
@@ -124,7 +207,7 @@
         }
 
         .hero-marker {
-            background: #2f1b44;
+            background: rgba(47, 27, 68, 0.7);
             border: 2px solid #a35eff;
             box-shadow: 0 0 15px #b77eff;
             padding: 0.4rem 1.6rem;
@@ -134,6 +217,15 @@
             gap: 0.6rem;
             margin-bottom: 2rem;
             color: #f0dbff;
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            animation: borderGlow 3s infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 15px #b77eff; }
+            50% { box-shadow: 0 0 30px #e2a5ff; }
+            100% { box-shadow: 0 0 15px #b77eff; }
         }
 
         .hero h1 {
@@ -168,29 +260,44 @@
             justify-content: center;
         }
 
-        /* КВАДРАТНЫЕ КНОПКИ С ЗАКРУГЛЕННЫМИ КРАЯМИ (square but with rounded corners) */
+        /* Кнопки с анимацией */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 0.6rem;
-            background: #1c102b;
+            background: linear-gradient(145deg, #2a1a3a, #1c102b);
             border: 2px solid #8a4fff;
             padding: 0.9rem 2.2rem;
             font-weight: 700;
             font-size: 1rem;
             color: #f2e2ff;
             text-decoration: none;
-            transition: 0.2s;
+            transition: all 0.3s ease;
             box-shadow: 0 0 15px #ac6eff, 0 4px 0 #421d6b;
-            /* квадратная форма с закруглением */
             border-radius: 12px;
-            /* убираем лишние скругления, но оставляем умеренные */
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
-            background: #5f2b9c;
+            background: linear-gradient(145deg, #6f3ab3, #5f2b9c);
             border-color: #cb9aff;
             box-shadow: 0 0 25px #c967ff, 0 5px 0 #32134b;
         }
@@ -201,8 +308,7 @@
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 30px #e6a6ff, 0 7px 0 #4d1f73;
-            background: #773dbb;
+            box-shadow: 0 0 35px #e6a6ff, 0 7px 0 #4d1f73;
         }
 
         /* товарная сетка */
@@ -217,7 +323,13 @@
             margin-bottom: 1rem;
             text-align: center;
             text-shadow: 0 0 10px #bb77ff, 0 0 20px #b245ff;
-            /* убрали слово НЕОН из заголовков */
+            animation: titlePulse 3s infinite;
+        }
+
+        @keyframes titlePulse {
+            0% { text-shadow: 0 0 10px #bb77ff, 0 0 20px #b245ff; }
+            50% { text-shadow: 0 0 20px #e2a5ff, 0 0 40px #b245ff; }
+            100% { text-shadow: 0 0 10px #bb77ff, 0 0 20px #b245ff; }
         }
 
         .section-desc {
@@ -229,42 +341,48 @@
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
 
         .product-card {
-            background: #151025;
+            background: rgba(21, 16, 37, 0.7);
+            backdrop-filter: blur(10px);
             border: 3px solid #a25aff;
             box-shadow: 0 0 30px #b05eff, inset 0 0 15px #2f174b;
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
-            transition: 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            /* квадратные карточки с небольшим скруглением */
-            border-radius: 16px;
+            border-radius: 24px;
+            animation: cardFloat 5s infinite alternate;
+        }
+
+        @keyframes cardFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
         }
 
         .product-card:hover {
             border-color: #f0adff;
-            box-shadow: 0 0 45px #d48aff, inset 0 0 20px #a749ff;
-            transform: scale(1.02);
+            box-shadow: 0 0 60px #d48aff, inset 0 0 30px #a749ff;
+            transform: scale(1.05) translateY(-15px);
+            z-index: 10;
         }
 
-        /* пиксельные уголки (майнкрафт деталь) */
         .product-card::before {
             content: '';
             position: absolute;
             top: -6px;
             left: -6px;
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             border-top: 5px solid #b56eff;
             border-left: 5px solid #b56eff;
             filter: drop-shadow(0 0 8px magenta);
-            border-radius: 4px 0 0 0;
+            border-radius: 8px 0 0 0;
         }
 
         .product-card::after {
@@ -272,47 +390,53 @@
             position: absolute;
             bottom: -6px;
             right: -6px;
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             border-bottom: 5px solid #b56eff;
             border-right: 5px solid #b56eff;
             filter: drop-shadow(0 0 8px magenta);
-            border-radius: 0 0 4px 0;
+            border-radius: 0 0 8px 0;
         }
 
         .product-name {
-            font-size: 1.9rem;
+            font-size: 2rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 12px #b779ff;
+            text-shadow: 0 0 15px #b779ff;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .product-name i {
             color: #cb9aff;
-            font-size: 2rem;
+            font-size: 2.2rem;
+            animation: iconSpin 8s infinite linear;
+        }
+
+        @keyframes iconSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .product-desc {
             color: #bdabdf;
-            font-size: 0.95rem;
+            font-size: 1rem;
             margin: 0.7rem 0 1.5rem;
             flex: 1;
         }
 
         .price {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 800;
             color: #f2dbff;
-            text-shadow: 0 0 15px #c67aff, 0 0 30px #ad40ff;
+            text-shadow: 0 0 20px #c67aff, 0 0 40px #ad40ff;
             margin: 0.5rem 0;
             line-height: 1;
         }
 
         .price small {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 400;
             color: #bba1e6;
         }
@@ -321,12 +445,130 @@
             width: 100%;
             justify-content: center;
             margin-top: 1rem;
-            background: #2d1949;
-            border-width: 3px;
         }
 
+        /* Модальное окно оплаты */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: linear-gradient(145deg, #1e1333, #2a1a42);
+            border: 4px solid #a25aff;
+            border-radius: 30px;
+            padding: 2.5rem;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 0 50px #b77eff, 0 0 100px #5f2b9c;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            font-size: 2rem;
+            text-shadow: 0 0 10px #b77eff;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #edeaff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #ff6b6b;
+            transform: rotate(90deg);
+        }
+
+        .modal-product-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .modal-product-name {
+            font-size: 1.5rem;
+            color: #e2a5ff;
+        }
+
+        .modal-product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f2dbff;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cbb5f0;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            background: #0d0823;
+            border: 2px solid #a25aff;
+            border-radius: 15px;
+            color: white;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #e2a5ff;
+            box-shadow: 0 0 20px #b77eff;
+        }
+
+        .modal-pay-btn {
+            width: 100%;
+            margin-top: 1rem;
+            background: linear-gradient(145deg, #6f3ab3, #8a4fff);
+        }
+
+        /* остальные элементы */
         .minecraft-badge {
-            background: #382753;
+            background: rgba(56, 39, 83, 0.7);
+            backdrop-filter: blur(5px);
             border: 3px solid #b77eff;
             color: #e9d2ff;
             padding: 0.5rem 1rem;
@@ -335,8 +577,15 @@
             align-items: center;
             gap: 8px;
             margin: 2rem 0;
-            box-shadow: 0 0 20px #c373ff;
-            border-radius: 12px;
+            box-shadow: 0 0 30px #c373ff;
+            border-radius: 20px;
+            animation: badgePulse 3s infinite;
+        }
+
+        @keyframes badgePulse {
+            0% { box-shadow: 0 0 30px #c373ff; }
+            50% { box-shadow: 0 0 60px #e2a5ff; }
+            100% { box-shadow: 0 0 30px #c373ff; }
         }
 
         .footer {
@@ -349,7 +598,10 @@
             flex-wrap: wrap;
             color: #b29ad9;
             text-shadow: 0 0 5px #9e5eff;
-            box-shadow: 0 -8px 0 #2d1a44;
+            backdrop-filter: blur(5px);
+            border-radius: 30px 30px 0 0;
+            background: rgba(11, 11, 23, 0.3);
+            padding: 2rem;
         }
 
         .social-links a {
@@ -357,53 +609,67 @@
             margin-left: 1.8rem;
             font-size: 1.5rem;
             filter: drop-shadow(0 0 8px #bf7aff);
+            transition: all 0.3s;
         }
 
         .social-links a:hover {
             color: white;
-            text-shadow: 0 0 20px #f2daff;
+            transform: translateY(-5px) scale(1.2);
+            filter: drop-shadow(0 0 20px #f2daff);
         }
 
         .fixed-brand {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #241735;
+            background: rgba(36, 23, 53, 0.8);
+            backdrop-filter: blur(10px);
             border: 3px solid #b76eff;
             padding: 0.6rem 1.4rem;
             font-weight: 700;
-            box-shadow: 0 0 25px #cc7eff;
-            backdrop-filter: blur(6px);
+            box-shadow: 0 0 30px #cc7eff;
             color: #f0dcff;
-            z-index: 999;
-            border-radius: 12px;
+            z-index: 99;
+            border-radius: 20px;
+            animation: floatFixed 4s infinite alternate;
+        }
+
+        @keyframes floatFixed {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
         }
 
         .minecraft-box {
-            background: #1e1333;
+            background: rgba(30, 19, 51, 0.7);
+            backdrop-filter: blur(10px);
             border: 4px solid #9f64d9;
-            box-shadow: inset 0 0 0 4px #4b2b6b, 0 0 30px #b561ff;
-            padding: 1rem;
-            border-radius: 16px;
+            box-shadow: inset 0 0 0 4px #4b2b6b, 0 0 50px #b561ff;
+            padding: 2rem;
+            border-radius: 30px;
+            animation: boxGlow 4s infinite;
         }
 
-        hr {
-            border: 2px solid #572f8f;
-            box-shadow: 0 0 12px #a853ff;
+        @keyframes boxGlow {
+            0% { box-shadow: inset 0 0 0 4px #4b2b6b, 0 0 50px #b561ff; }
+            50% { box-shadow: inset 0 0 0 4px #7b3fbb, 0 0 80px #d48aff; }
+            100% { box-shadow: inset 0 0 0 4px #4b2b6b, 0 0 50px #b561ff; }
         }
 
-        /* форма */
-        input, button {
-            font-family: 'Inter', sans-serif;
+        .email-section {
+            text-align: center;
+            margin: 5rem 0 2rem;
         }
 
         .email-form {
             display: flex;
             gap: 0.5rem;
-            background: #1b112b;
+            background: rgba(27, 17, 43, 0.7);
+            backdrop-filter: blur(5px);
             border: 3px solid #a162e0;
             padding: 0.5rem;
-            border-radius: 12px;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .email-input {
@@ -412,7 +678,20 @@
             border: 2px solid #b266ff;
             padding: 1rem;
             color: white;
-            border-radius: 8px;
+            border-radius: 15px;
+            font-size: 1rem;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #e2a5ff;
+            box-shadow: 0 0 20px #b77eff;
+        }
+
+        hr {
+            border: 2px solid #572f8f;
+            box-shadow: 0 0 20px #a853ff;
+            border-radius: 2px;
         }
     </style>
 </head>
@@ -455,31 +734,31 @@
 
             <div class="product-grid">
                 <!-- товар 1: 1.99$ -->
-                <div class="product-card">
+                <div class="product-card" data-product="База" data-price="1.99">
                     <div class="product-name"><i class="fas fa-cube"></i> БАЗА</div>
                     <div class="product-desc">12 текстур, обои 4K, майнкрафт-палитра</div>
                     <div class="price">1.99 <small>$</small></div>
-                    <button class="btn btn-block" onclick="alert('✅ TowkaVisuals: товар «База» (1.99$) добавлен')">
-                        <i class="fas fa-bolt"></i> в корзину
+                    <button class="btn btn-block btn-buy" onclick="openPaymentModal('База', '1.99')">
+                        <i class="fas fa-bolt"></i> купить
                     </button>
                 </div>
 
                 <!-- товар 2: 4.99$ -->
-                <div class="product-card">
+                <div class="product-card" data-product="Стандарт" data-price="4.99">
                     <div class="product-name"><i class="fas fa-cubes"></i> СТАНДАРТ</div>
                     <div class="product-desc">35 шейдеров + 3D-модели для Blender</div>
                     <div class="price">4.99 <small>$</small></div>
-                    <button class="btn btn-block" onclick="alert('✨ TowkaVisuals: набор «Стандарт» (4.99$) добавлен')">
-                        <i class="fas fa-cart-shopping"></i> в корзину
+                    <button class="btn btn-block btn-buy" onclick="openPaymentModal('Стандарт', '4.99')">
+                        <i class="fas fa-cart-shopping"></i> купить
                     </button>
                 </div>
 
                 <!-- товар 3: 19.99$ -->
-                <div class="product-card">
+                <div class="product-card" data-product="Альтернет" data-price="19.99">
                     <div class="product-name"><i class="fas fa-dragon"></i> АЛЬТЕРНЕТ</div>
                     <div class="product-desc">Полный доступ: 200+ ресурсов, эксклюзив</div>
                     <div class="price">19.99 <small>$</small></div>
-                    <button class="btn btn-block" onclick="alert('💜 TowkaVisuals: куплен «Альтернет» (19.99$)')">
+                    <button class="btn btn-block btn-buy" onclick="openPaymentModal('Альтернет', '19.99')">
                         <i class="fas fa-crown"></i> купить
                     </button>
                 </div>
@@ -502,17 +781,17 @@
                     <p style="color: #cfb5fc;">эксклюзивный доступ</p>
                 </div>
             </div>
-            <button class="btn btn-primary" onclick="alert('⚡ VIP доступ (бета)')">
+            <button class="btn btn-primary" onclick="openPaymentModal('VIP набор', '9.99')">
                 <i class="fas fa-cube"></i> 9.99$ demo
             </button>
         </div>
 
-        <!-- форма -->
-        <div style="text-align: center; margin: 5rem 0 2rem;">
+        <!-- форма для email -->
+        <div class="email-section">
             <h2 class="section-title" style="font-size: 2.2rem;">получить код</h2>
-            <div class="email-form" style="max-width: 600px; margin: 0 auto;">
+            <div class="email-form">
                 <input type="email" placeholder="ваш email" id="neon-email" class="email-input">
-                <button class="btn btn-primary" style="margin:0;" onclick="let v=document.getElementById('neon-email').value; if(v) alert('код отправлен на ' + v); else alert('✧ введи email')">
+                <button class="btn btn-primary" style="margin:0;" onclick="submitEmail()">
                     <i class="fas fa-paper-plane"></i> выслать
                 </button>
             </div>
@@ -532,9 +811,113 @@
         </footer>
     </div>
 
+    <!-- Модальное окно оплаты -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>оформление</h2>
+                <button class="modal-close" onclick="closePaymentModal()">&times;</button>
+            </div>
+            <div class="modal-product-info" id="modalProductInfo">
+                <div class="modal-product-name" id="modalProductName"></div>
+                <div class="modal-product-price" id="modalProductPrice"></div>
+            </div>
+            <form id="paymentForm" onsubmit="processPayment(event)">
+                <div class="form-group">
+                    <label>номер карты</label>
+                    <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                </div>
+                <div class="form-group">
+                    <label>срок действия</label>
+                    <input type="text" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" placeholder="123" maxlength="3" required>
+                </div>
+                <div class="form-group">
+                    <label>имя владельца</label>
+                    <input type="text" placeholder="IVAN IVANOV" required>
+                </div>
+                <button type="submit" class="btn btn-primary modal-pay-btn">
+                    <i class="fas fa-lock"></i> оплатить
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- фиксированная плашка -->
     <div class="fixed-brand">
         <i class="fas fa-cube"></i> TowkaVisuals · фиолет <i class="fas fa-cube"></i>
     </div>
-</body>
-</html>
+
+    <script>
+        // Функции для модального окна
+        function openPaymentModal(productName, productPrice) {
+            document.getElementById('modalProductName').textContent = productName;
+            document.getElementById('modalProductPrice').textContent = productPrice + ' $';
+            document.getElementById('paymentModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Обработка оплаты
+        function processPayment(event) {
+            event.preventDefault();
+            const productName = document.getElementById('modalProductName').textContent;
+            const productPrice = document.getElementById('modalProductPrice').textContent;
+            
+            // Анимация успешной оплаты
+            const payBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = payBtn.innerHTML;
+            payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> обработка...';
+            payBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert(`✅ TowkaVisuals: оплата ${productName} (${productPrice}) выполнена успешно! Спасибо за покупку.`);
+                closePaymentModal();
+                payBtn.innerHTML = originalText;
+                payBtn.disabled = false;
+            }, 1500);
+        }
+
+        // Закрытие по клику вне модалки
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePaymentModal();
+            }
+        });
+
+        // Закрытие по ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('paymentModal').classList.contains('active')) {
+                closePaymentModal();
+            }
+        });
+
+        // Форматирование номера карты
+        document.querySelectorAll('input[placeholder="1234 5678 9012 3456"]').forEach(input => {
+            input.addEventListener('input', function(e) {
+                let value = this.value.replace(/\s/g, '').replace(/[^0-9]/g, '');
+                let formatted = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i > 0 && i % 4 === 0) formatted += ' ';
+                    formatted += value[i];
+                }
+                this.value = formatted;
+            });
+        });
+
+        // Форматирование CVV
+        document.querySelectorAll('input[placeholder="123"]').forEach(input => {
+            input.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '').slice(0, 3);
+            });
+        });
+
+        // Форматирование MM/YY
+        document.querySelectorAll('input[placeholder="MM/YY"]').
